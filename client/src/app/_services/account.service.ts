@@ -58,15 +58,15 @@ export class AccountService {
     verifyEmail(token: string) {
         return this.http.post(`${baseUrl}/verify-email`, { token });
     }
-    
+
     forgotPassword(email: string) {
         return this.http.post(`${baseUrl}/forgot-password`, { email });
     }
-    
+
     validateResetToken(token: string) {
         return this.http.post(`${baseUrl}/validate-reset-token`, { token });
     }
-    
+
     resetPassword(token: string, password: string, confirmPassword: string) {
         return this.http.post(`${baseUrl}/reset-password`, { token, password, confirmPassword });
     }
@@ -78,11 +78,11 @@ export class AccountService {
     getById(id: string) {
         return this.http.get<Account>(`${baseUrl}/${id}`);
     }
-    
+
     create(params) {
         return this.http.post(baseUrl, params);
     }
-    
+
     update(id, params) {
         return this.http.put(`${baseUrl}/${id}`, params)
             .pipe(map((account: any) => {
@@ -95,18 +95,18 @@ export class AccountService {
                 return account;
             }));
     }
-    
+
     delete(id: string) {
         return this.http.delete(`${baseUrl}/${id}`)
             .pipe(finalize(() => {
                 // auto logout if the logged in account was deleted
-                if (id === this.accountValue.id)
+                if (id === this.accountValue.id) {
                     this.logout();
+                }
             }));
     }
 
     // helper methods
-
     private refreshTokenTimeout;
 
     private startRefreshTokenTimer() {
